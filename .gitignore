@@ -2,7 +2,7 @@
 node_modules
 /dist
 /else
-
+/src/js/three/
 
 # local env files
 .env.local
