@@ -22,3 +22,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+/src/js/CSS3DRenderer.js
+/src/js/GLTFLoader.js
+/src/js/OrbitControls.js
+/src/js/Sky.js
+/src/js/Water.js

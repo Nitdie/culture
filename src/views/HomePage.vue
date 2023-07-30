@@ -38,19 +38,11 @@ body{
 }
 .v-enter-active,
 .v-leave-active{
-  transition:opacity 0.8s ease
+  transition:opacity 0.4s ease
 }
+.v-enter-from,
 .v-leave-to{
   opacity:0
-}
-.center-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: aliceblue;
-  margin:0px;
-  padding:0px;
 }
 
 .logo{

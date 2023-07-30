@@ -5,6 +5,7 @@ const routes =  [
         path: "/",
         alias: "/home",
         name: "home",
+        // component: () => import("./components/water-com")
         component: () => import("./views/HomePage")
     },
     {
@@ -12,6 +13,12 @@ const routes =  [
         alias: "/main",
         name: "main",
         component: () => import("./views/MainPage")
+    },
+    {
+        path: "/",
+        alias: "/sub",
+        name: "sub",
+        component: () => import("./components/subpage-com")
     },
     ]
 

@@ -10,6 +10,21 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family:'msz';
+  src:url('../public/fonts/MaShanZheng-Regular.ttf')
+}
+
 #app {
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: aliceblue;
+  margin:0px;
+  padding:0px;
 }
 </style>
