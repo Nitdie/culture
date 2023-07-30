@@ -6,8 +6,8 @@
                  :Header="page.head"
                  :Content="page.content"
                  :is_title="page.title"
-                 :style="{ top: index * 100 + '%' }"></subpage-com>
-
+                 :style="{top: index * 100 + 'vh'}"></subpage-com>
+<!--    <subpage-com ></subpage-com><subpage-com>m,</subpage-com>-->
   </div>
   </transition>
 </template>
@@ -24,6 +24,7 @@ export default {
       SubPages:[
         {title:"true",head:"HEAD 1",content:"CONTENT 1"},
         {title:"",head:"HEAD 2",content:"CONTENT 2"},
+        {title:"f",head:"HEAD 3",content:"CONTENT 3"},
       ]
     }
   },

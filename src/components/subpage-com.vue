@@ -75,6 +75,7 @@ export default {
 .custom-header{
   margin-left:10vw;
   height:27vh;
+  width:90vw;
   /*background-color: #007BFF;*/
   display: flex;
   align-items: center;
@@ -85,6 +86,7 @@ export default {
 .custom-main{
   margin-left:10vw;
   height:73vh;
+  width: 90vw;
   /*background-color: #b7ff00;*/
   display: flex;
   font-size: 30px;

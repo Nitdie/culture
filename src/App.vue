@@ -16,6 +16,7 @@ export default {
 }
 
 #app {
+  overflow: hidden;
 }
 .center-container {
   display: flex;
