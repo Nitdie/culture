@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div class=common-layout>
     <el-container>
       <el-header :class="{'title-header':is_title,'custom-header':!is_title}">{{ Header }}</el-header>
       <el-main :class="{'title-main':is_title,'custom-main':!is_title}">{{Content}}</el-main>
@@ -24,7 +24,7 @@ export default {
   props:['is_title','Header','Content'],
   methods:{
     scrollDown(){
-      console.log('down')
+      this.$emit('scrollDown')
     }
   }
 }
@@ -35,6 +35,7 @@ export default {
   position: absolute;
   top:0px;
   left: 0px;
+  transition: all 0.7s ease-out;
 }
 .title-footer{
   height:16vh;
@@ -74,7 +75,7 @@ export default {
 }
 .custom-header{
   margin-left:10vw;
-  height:27vh;
+  height:35vh;
   width:90vw;
   /*background-color: #007BFF;*/
   display: flex;
@@ -85,7 +86,7 @@ export default {
 }
 .custom-main{
   margin-left:10vw;
-  height:73vh;
+  height:65vh;
   width: 90vw;
   /*background-color: #b7ff00;*/
   display: flex;

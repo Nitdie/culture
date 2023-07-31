@@ -1,13 +1,14 @@
 <template>
   <transition>
   <div class="center-container" v-if="showPage">
-    <water-com style="position:fixed"></water-com>
+    <water-com lookY='0' style="position:fixed"></water-com>
     <subpage-com v-for="(page,index) in SubPages"
                  :Header="page.head"
                  :Content="page.content"
                  :is_title="page.title"
-                 :style="{top: index * 100 + 'vh'}"></subpage-com>
-<!--    <subpage-com ></subpage-com><subpage-com>m,</subpage-com>-->
+                  name="sub"
+                 :style="{top: index * 100 + 'vh'}"
+                @scrollDown="scroll"></subpage-com>
   </div>
   </transition>
 </template>
@@ -22,24 +23,61 @@ export default {
     return {
       showPage:false,
       SubPages:[
-        {title:"true",head:"HEAD 1",content:"CONTENT 1"},
+        {title:"tru",head:"HEAD 1",content:"CONTENT 1"},
         {title:"",head:"HEAD 2",content:"CONTENT 2"},
         {title:"f",head:"HEAD 3",content:"CONTENT 3"},
-      ]
+      ],
     }
   },
   methods:{
-    init(){
-      this.fadeIn();
-    },
     fadeIn(){
       setTimeout(() => {
         this.showPage = true;
       },1000)
+    },
+    addScroll(){
+      setTimeout( ()=>{
+        const cont = document.getElementsByClassName('center-container')[0]
+        const elements =document.getElementsByName('sub')
+        cont.addEventListener('wheel',(e)=>{
+          const delta = e.deltaY || e.detail || e.wheelDelta;
+          let scrollSpeed = 8;
+          if(e.deltaZ)
+            scrollSpeed = -50;
+          Array.prototype.forEach.call(elements,(element,index)=>{
+            const currentTop = parseFloat(element.style.top) || 0;
+
+            //内容进出时的透明度控制
+            if(currentTop>=-47&&currentTop<=47)
+              element.style.opacity=1
+            else
+              element.style.opacity=0
+
+            //
+            if(delta>0){
+              if(parseFloat(elements[elements.length-1].style.top)-scrollSpeed < 0)
+                scrollSpeed = parseFloat(elements[elements.length-1].style.top||0) ;
+              element.style.top = currentTop - scrollSpeed + 'vh'
+            }
+            else{
+              if(parseFloat(elements[elements.length-1].style.top) + scrollSpeed > 200){
+                scrollSpeed = parseFloat(200-parseFloat(elements[elements.length-1].style.top))
+              }
+              element.style.top = currentTop + scrollSpeed + 'vh'
+            }
+          })
+        })
+      },1000)
+    },
+    scroll(){
+      const cont = document.getElementsByClassName('center-container')[0]
+      cont.dispatchEvent(new WheelEvent('wheel',{deltaZ:1}))
     }
   },
+
   mounted(){
-    this.init()
+    this.fadeIn()
+    this.addScroll()
   },
   components:{
     waterCom,
@@ -50,6 +88,7 @@ export default {
 </script>
 
 <style scoped>
+
 .v-enter-active,
 .v-leave-active{
   transition:opacity 1s ease

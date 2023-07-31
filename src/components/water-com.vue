@@ -12,6 +12,7 @@ import {OrbitControls} from "../js/OrbitControls.js";
 
 export default {
   name: "water-com.vue",
+
   mounted() {
     this.init();
   },
