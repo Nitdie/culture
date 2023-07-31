@@ -6,13 +6,9 @@
 import * as THREE from '../js/three/src/Three'
 import {Water} from '../js/Water'
 import {Sky} from '../js/Sky'
-// import { GLTFLoader } from '../js/GLTFLoader.js';
-import {OrbitControls} from "../js/OrbitControls.js";
-// import {CSS3DRenderer,CSS3DObject} from "../js/CSS3DRenderer.js";
 
 export default {
-  name: "water-com.vue",
-
+  name: "water-com",
   mounted() {
     this.init();
   },
@@ -22,8 +18,25 @@ export default {
       const scene = new THREE.Scene()
       const camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
       camera.position.set( 64, 30, 94 );
-      let lookY = 0
+      let lookY = 80
       camera.lookAt(0,lookY,0)
+
+      document.body.addEventListener('wheel',(e)=>{
+        let speed = 0.01
+        if(e.deltaZ==1)
+          speed = 0.08
+        const intervalId = setInterval(()=>{
+          const delta = e.deltaY || e.detail || e.wheelDelta;
+          if(delta>0 && lookY > 0)
+            lookY -= speed;
+          else if(delta <0 && lookY < 80)
+            lookY += speed;
+        },1)
+
+        setTimeout(()=>{
+          clearInterval(intervalId)
+        },700)
+      })
 
 
       const renderer = new THREE.WebGLRenderer();
@@ -125,7 +138,8 @@ export default {
       }
 
 
-      function animate() {
+      function animate(currentTime) {
+
         const time = performance.now() *0.001
         water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
         cube.position.y = Math.sin( time ) * 20 + 5;
@@ -133,9 +147,8 @@ export default {
         cube.rotation.z = time * 0.51;
         requestAnimationFrame( animate );
         renderer.render(scene,camera)
-
         // lookY+=0.1
-        // camera.lookAt(0,lookY,0)
+        camera.lookAt(0,lookY,0)
       }
       animate()
     }

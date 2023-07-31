@@ -1,7 +1,7 @@
 <template>
   <transition>
   <div class="center-container" v-if="showPage">
-    <water-com lookY='0' style="position:fixed"></water-com>
+    <water-com style="position:fixed"></water-com>
     <subpage-com v-for="(page,index) in SubPages"
                  :Header="page.head"
                  :Content="page.content"
@@ -27,6 +27,7 @@ export default {
         {title:"",head:"HEAD 2",content:"CONTENT 2"},
         {title:"f",head:"HEAD 3",content:"CONTENT 3"},
       ],
+      id:'water',
     }
   },
   methods:{
@@ -43,20 +44,16 @@ export default {
           const delta = e.deltaY || e.detail || e.wheelDelta;
           let scrollSpeed = 8;
           if(e.deltaZ)
-            scrollSpeed = -50;
+            scrollSpeed = -80;
+
           Array.prototype.forEach.call(elements,(element,index)=>{
             const currentTop = parseFloat(element.style.top) || 0;
 
-            //内容进出时的透明度控制
-            if(currentTop>=-47&&currentTop<=47)
-              element.style.opacity=1
-            else
-              element.style.opacity=0
-
             //
             if(delta>0){
-              if(parseFloat(elements[elements.length-1].style.top)-scrollSpeed < 0)
+              if(parseFloat(elements[elements.length-1].style.top)-scrollSpeed < 0){
                 scrollSpeed = parseFloat(elements[elements.length-1].style.top||0) ;
+              }
               element.style.top = currentTop - scrollSpeed + 'vh'
             }
             else{
@@ -65,6 +62,18 @@ export default {
               }
               element.style.top = currentTop + scrollSpeed + 'vh'
             }
+
+            //内容进出时的透明度控制
+            function checkOp(){
+              const CT = parseFloat(element.style.top) || 0
+              if(CT>=-45&&CT<=45)
+                element.style.opacity=1
+              else
+                element.style.opacity=0
+            }
+            checkOp()
+            if(e.deltaZ)
+              setTimeout(checkOp,700)
           })
         })
       },1000)
@@ -72,6 +81,7 @@ export default {
     scroll(){
       const cont = document.getElementsByClassName('center-container')[0]
       cont.dispatchEvent(new WheelEvent('wheel',{deltaZ:1}))
+      document.body.dispatchEvent(new WheelEvent('wheel',{deltaY:1,deltaZ:1}))
     }
   },
 
