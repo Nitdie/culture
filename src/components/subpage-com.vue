@@ -86,7 +86,7 @@ export default {
   justify-content: center;
   font-size: 90px;
   font-family: msz;
-  color: rgb(0, 0, 0);
+  color: rgb(2, 2, 2);
   text-shadow: 1px 1px 4px #fff8f8;
   opacity: 0.8;
 }

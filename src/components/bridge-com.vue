@@ -363,8 +363,11 @@ export default {
 
       function animate() {
         // controls.update();
-        if(!chosen)
+        if(!chosen){
+          renderer2.render(scene2,camera);
           scene.rotation.y -= 0.003
+        }
+
         resetRenderers();
         resetInfos();
         resetMaterials();

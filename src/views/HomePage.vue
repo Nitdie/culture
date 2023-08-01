@@ -5,7 +5,7 @@
       <el-col :span="24" class="center-col">
         <img src="../assets/logo_water.png" class="logo">
         <h1 class="heading">走近常州水文化</h1>
-        <p class="description">常州市水文化科普展示平台</p>
+        <p class="description">常州市水文化科普</p>
         <router-link to="/main">
           <el-button type="primary" style="font-weight: bold" plain @click="enterApp">进入</el-button>
         </router-link>
