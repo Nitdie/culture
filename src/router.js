@@ -20,6 +20,12 @@ const routes =  [
         name: "sub",
         component: () => import("./components/subpage-com")
     },
+    {
+        path: "/",
+        alias: "/bridge",
+        name: "bridge",
+        component: () => import("./components/bridge-com")
+    },
     ]
 
 const router = createRouter({

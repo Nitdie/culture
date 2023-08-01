@@ -1,19 +1,25 @@
 <template>
   <div class=common-layout>
-    <el-container>
+    <el-container v-if="!is_bridge">
       <el-header :class="{'title-header':is_title,'custom-header':!is_title}">{{ Header }}</el-header>
       <el-main :class="{'title-main':is_title,'custom-main':!is_title}">{{Content}}</el-main>
       <el-main class=title-footer v-show="is_title">
         <div class="arrow" @click="scrollDown"></div>
       </el-main>
     </el-container>
+    <bridge-com v-if="is_bridge"></bridge-com>
   </div>
 </template>
 
 
 <script>
+import bridgeCom from "@/components/bridge-com";
+
 export default {
   name: "subpage-com",
+  components:{
+    bridgeCom
+  },
   data(){
     return{
       // is_title: false,
@@ -21,12 +27,30 @@ export default {
       // Content:"常州水概述"
     }
   },
-  props:['is_title','Header','Content'],
+  // props:['is_title','is_bridge','Header','Content'],
+  props:{
+    'is_title':{
+      type:Boolean,
+      default:false
+    },
+    'is_bridge':{
+      type:Boolean,
+      default:true
+    },
+    'Header':{
+      type:String,
+      default:'TestHeader'
+    },
+    'Content':{
+      type:String,
+      default: 'TestContent'
+    }
+  },
   methods:{
     scrollDown(){
       this.$emit('scrollDown')
     }
-  }
+  },
 }
 </script>
 

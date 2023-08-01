@@ -6,9 +6,11 @@
                  :Header="page.head"
                  :Content="page.content"
                  :is_title="page.title"
+                 :is_bridge="page.bridge"
                   name="sub"
                  :style="{top: index * 100 + 'vh'}"
                 @scrollDown="scroll"></subpage-com>
+
   </div>
   </transition>
 </template>
@@ -23,9 +25,10 @@ export default {
     return {
       showPage:false,
       SubPages:[
-        {title:"tru",head:"HEAD 1",content:"CONTENT 1"},
-        {title:"",head:"HEAD 2",content:"CONTENT 2"},
-        {title:"f",head:"HEAD 3",content:"CONTENT 3"},
+        {title:true,head:"HEAD 1",content:"CONTENT 1",bridge: false},
+        {title:false,head:"HEAD 2",content:"CONTENT 2",bridge: false},
+        {title:true,head:"HEAD 3",content:"CONTENT 3",bridge: false},
+        {title:false,head:"HEAD 4",content:"CONTENT 4",bridge:true},
       ],
       id:'water',
     }
