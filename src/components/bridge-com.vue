@@ -1,9 +1,18 @@
 <template>
-  <div class="cont-main flex-lg-row">
-    <div class="col-6" id="container_canvas">
-      <div class="shadow-sm text-black-50 h2 title-bridge">本善桥</div>
-    </div>
-  </div>
+<!--  <div class="cont-main flex-lg-row">-->
+  <el-container style="height:100vh">
+    <el-aside style="width:28vw;height:100%;justify-content: center;align-items: center;display: flex;">
+      <h1 style="font-family: msz;font-weight: bolder;font-size: 60px;width:60px;line-height: 80px;text-shadow: 1px 1px 3px #fff8f8;">本善桥</h1>
+    </el-aside>
+    <div id="bridge_canvas" style="width: 44vw"></div>
+    <el-aside style="width:28vw;height:100%;justify-content: center;align-items: center;display: flex; margin-right:2vw">
+      <div v-html="artcle" style="font-size: 30px;font-family: msz;line-height: 40px;text-shadow: 0.3px 0.3px 1px #fff8f8;">
+
+
+      </div>
+    </el-aside>
+  </el-container>
+<!--  </div>-->
 
   <template v-for="item in items">
   <el-dialog
@@ -11,7 +20,7 @@
       width="60vw"
       v-if ="item.tag===showTag"
       :modal="false"
-      style="background-color: rgba(255,255,255,40%)"
+      style="background-color: rgba(255,255,255,90%)"
       center
   >
     <template #header>
@@ -46,7 +55,7 @@
   line-height: 30px;
   text-shadow: 0.2px 0.2px 2px #fff8f8;
 }
-#container_canvas{
+#bridge_canvas{
   height: 100vh;
   width: 100vw;
   /*width: 1000px;*/
@@ -79,6 +88,7 @@ export default {
   name: "bridge-com",
   data(){
     return{
+      gltfS:null,
       dialogVisible:false,
       showTag:'Body',
       items:[
@@ -106,9 +116,12 @@ export default {
           article: "桥体“本善桥”字样 <br> 正中栏板外侧镌有楷书“本善桥”三字，字外有圈",
           imgSrc: "/imgs/brick.png"
         }
-      ]
+      ],
+      artcle:`      地点：金坛市金城镇清培村<br>始建：南宋时期<br>走向：东西走向，横跨清培河<br>初名：清培桥<br>类别：单孔石拱桥<br>本善桥是常州市第一座被列入江苏省文物保护单位的古桥<br>
+`
     }
   },
+  props:['offTop'],
   mounted() {
       this.init();
   },
@@ -120,7 +133,7 @@ export default {
 
     async init(){
       const _this = this
-      const container = document.getElementById("container_canvas");
+      const container = document.getElementById("bridge_canvas");
       const scene = new THREE.Scene();
       const scene2 = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
@@ -130,11 +143,11 @@ export default {
           1000    //far
       );
       camera.position.x = 6
-      camera.position.y = 1.5;
+      camera.position.y = 2.5;
       camera.position.z = 3.8;
       camera.lookAt(0,0,0)
 
-      const controls = new OrbitControls(camera,container);
+      // const controls = new OrbitControls(camera,container);
 
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(
@@ -204,7 +217,7 @@ export default {
               }
           }
 
-
+        _this.gltfS = gltf.scene
         gltf.scene.scale.set(1.5,2,2)
         scene.add( gltf.scene );
       }, undefined, function ( error ) {
@@ -258,8 +271,9 @@ export default {
 
       //WORKING
       function onPointerMove( event ) {
+        const rect = container.getBoundingClientRect()
         mouse.x = ((event.clientX - container.offsetLeft) / container.offsetWidth ) * 2 - 1;
-        mouse.y = - ((event.clientY - container.offsetTop)/ container.offsetHeight ) * 2 + 1;
+        mouse.y = - ((event.clientY - rect.y)/ container.offsetHeight ) * 2 + 1;
       }
       document.body.addEventListener('pointermove',onPointerMove);
       let material_chosen = new THREE.MeshPhongMaterial();
@@ -267,6 +281,7 @@ export default {
 
       function hoverPieces(){
         // console.log(document.querySelector('.dialog'))
+
         caster.setFromCamera(mouse,camera);
         const intersects = caster.intersectObjects(scene.children)
         chosen = intersects[0];
@@ -347,7 +362,9 @@ export default {
       }
 
       function animate() {
-        controls.update();
+        // controls.update();
+        if(!chosen)
+          scene.rotation.y -= 0.003
         resetRenderers();
         resetInfos();
         resetMaterials();

@@ -7,7 +7,7 @@
         <div class="arrow" @click="scrollDown"></div>
       </el-main>
     </el-container>
-    <bridge-com v-if="is_bridge"></bridge-com>
+    <bridge-com v-if="is_bridge" :off-top="offTop"></bridge-com>
   </div>
 </template>
 
@@ -44,6 +44,10 @@ export default {
     'Content':{
       type:String,
       default: 'TestContent'
+    },
+    'offTop':{
+      type:Number,
+      default:0,
     }
   },
   methods:{
@@ -106,16 +110,20 @@ export default {
   align-items: center;
   font-size: 50px;
   font-family: msz;
-  text-shadow: 1px 1px 2px #fff8f8;
+  text-shadow: 0.6px 0.6px 1px #fff8f8;
 }
 .custom-main{
   margin-left:10vw;
+  margin-right:10vw;
   height:65vh;
-  width: 90vw;
-  /*background-color: #b7ff00;*/
+  width: 80vw;
+  /*background-color: rgba(0,0,255,10%);*/
   display: flex;
   font-size: 30px;
   font-family: msz;
+  font-weight: 100;
+  line-height: 40px;
+  text-shadow: 0.2px 0.2px 2px #ffffff;
 }
 .arrow {
   opacity: 50%;

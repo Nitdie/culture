@@ -22,12 +22,12 @@ export default {
       camera.lookAt(0,lookY,0)
 
       document.body.addEventListener('wheel',(e)=>{
-        let speed = 0.01
+        let speed = 0.003
         if(e.deltaZ==1)
           speed = 0.08
         const intervalId = setInterval(()=>{
           const delta = e.deltaY || e.detail || e.wheelDelta;
-          if(delta>0 && lookY > 0)
+          if(delta>0 && lookY > 20)
             lookY -= speed;
           else if(delta <0 && lookY < 80)
             lookY += speed;
