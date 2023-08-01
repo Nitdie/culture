@@ -9,6 +9,10 @@
         <router-link to="/main">
           <el-button type="primary" style="font-weight: bold" plain @click="enterApp">进入</el-button>
         </router-link>
+        <div style="text-align: center;
+        margin-top:40vh;
+        margin-bottom:-28vh;"
+        ><a href="https://beian.miit.gov.cn/" style="color: rgba(0,05,05,0.3);text-decoration:none">赣ICP备2023004095号</a></div>
       </el-col>
     </el-row>
   </div>

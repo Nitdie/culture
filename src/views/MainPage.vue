@@ -1,6 +1,6 @@
 <template>
   <transition>
-  <div class="center-container" style="background-color: transparent" v-if="showPage">
+  <div class="center-container" style="background-color: transparent" v-show="showPage">
     <water-com style="position:fixed;z-index: -2"></water-com>
     <subpage-com v-for="(page,index) in SubPages"
                  :Header="page.head"
